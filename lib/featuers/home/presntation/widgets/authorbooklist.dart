@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gp/const.dart';
 import 'package:gp/featuers/home/presntation/manger/cubits/homebookscubit/authorcubit/authorcubit.dart';
 import 'package:gp/featuers/home/presntation/manger/cubits/homebookscubit/authorcubit/authorstates.dart';
 import 'package:gp/featuers/home/presntation/widgets/authorbook.dart';
+import 'package:gp/featuers/home/presntation/widgets/authorbookplaceholder.dart';
 
 class Authorbooklist extends StatefulWidget {
   const Authorbooklist({
@@ -27,18 +27,33 @@ class _AuthorbooklistState extends State<Authorbooklist> {
       height: 250,
       child: BlocBuilder<Authorcubit, AuthorStates>(
         builder: (context, state) {
+          if (state is AuthorFailed) {
+            return const Center(child: Text('server problem'),);
+          }
          if (state is AuthorDone) {
           List? books=BlocProvider.of<Authorcubit>(context).books;
             return ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: books!.length,
             itemBuilder: (context, index) {
-              return  Authorbook(book: books[index],);
+              return  GestureDetector(onTap: () {
+              Navigator.pushNamed(context, '/bookdetails', arguments: {
+                      "index":"$index A",
+                      "book":books[index]
+                    });
+           },
+                child: Authorbook(book: books[index],));
             },
           );
          }
          if (state is AuthorLoading) {
-           return const Center(child:  CircularProgressIndicator(color: color,),);
+           return  ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return const  AuthorbookShimmer();
+            },
+          );
          }
          else{
           return Center();

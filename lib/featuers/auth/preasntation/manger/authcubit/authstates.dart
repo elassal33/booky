@@ -6,7 +6,11 @@ class Intial extends AuthStates{
 }
  class Loading extends AuthStates {
   
-} class Done extends AuthStates {
+}
+ class SocialLoading extends AuthStates {
+  
+}
+ class Done extends AuthStates {
   
 }
  class Reset extends AuthStates {
@@ -16,6 +20,9 @@ class Intial extends AuthStates{
   
 }
  class Fiald extends AuthStates {
+  
+}
+ class Serverproblem extends AuthStates {
   
 }
  class Logout extends AuthStates {

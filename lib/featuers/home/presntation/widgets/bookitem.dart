@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gp/const.dart';
 import 'package:gp/featuers/home/data/models/bookmodel.dart';
 
-import 'package:gp/featuers/home/presntation/widgets/favicon.dart';
+
 
 class BookItem extends StatefulWidget {
   const BookItem({required this.index, super.key, required this.book});
@@ -42,7 +42,7 @@ class _BookItemState extends State<BookItem> {
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               child: Hero(
-                tag: '${widget.index}',
+                tag: widget.index,
                 child: Image.network(
                   widget.book.cover,
                   fit: BoxFit.cover,
@@ -77,7 +77,7 @@ class _BookItemState extends State<BookItem> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '29.99 Egp',
+                "${widget.book.price } Egp",
                 style: TextStyle(
                   color: color,
                   fontSize: 11.sp,
@@ -86,10 +86,24 @@ class _BookItemState extends State<BookItem> {
                 ),
               ),
               Spacer(),
-              FavIcon(isloved: widget.book.isfav,
+              Row(
+                children: [
+                  Text(
+                "${widget.book.rate}.0",
+                style: TextStyle(
+                  color: color.withOpacity(0.5),
+                  fontSize: 10.sp,
+               
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            const  Icon(Icons.star ,color: startscolor,size: 14,)
+                ],
+              ),
+              /*FavIcon(isloved: widget.book.isfav,
                 size: 16,
                 id: widget.book.id.toString(),
-              ),
+              ),*/
         const      SizedBox(
                 width: 8,
               )

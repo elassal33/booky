@@ -8,7 +8,7 @@ import 'package:gp/featuers/home/presntation/widgets/placeholder.dart';
 
 
 class FavorietsGridView extends StatefulWidget {
-  const FavorietsGridView({Key? key}) : super(key: key);
+  const FavorietsGridView({super.key});
 
   @override
   State<FavorietsGridView> createState() => _BooksGridViewState2();
@@ -30,10 +30,10 @@ class _BooksGridViewState2 extends State<FavorietsGridView> {
       child: BlocBuilder<FavCubit, Favstates>(
         builder: (context, state) {
           if (state is FavFailed) {
-            return Center(child: Text('network problem'),);
+            return const Center(child: Text('network problem',style: TextStyle(color: Colors.grey)),);
           }
           if (state is Nofav) {
-            return Center(child: Text('nofavoriets yet'),);
+            return const Center(child: Text('no favoriets yet',style: TextStyle(color: Colors.grey)),);
           }
           if (state is FavLoading) {
             return GridView.builder(
@@ -82,7 +82,7 @@ class _BooksGridViewState2 extends State<FavorietsGridView> {
               },
             );
           } else {
-            return SizedBox();
+            return const SizedBox();
           }
         },
       ),

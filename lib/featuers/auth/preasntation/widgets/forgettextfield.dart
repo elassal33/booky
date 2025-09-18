@@ -26,7 +26,7 @@ class ForgetTextField extends StatelessWidget{
          
         },
         onChanged:onChanged,
-          decoration: InputDecoration(errorText: error,
+          decoration: InputDecoration(errorText: error,errorMaxLines: 4,
             
        enabledBorder:const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)),  borderSide: BorderSide(color: Colors.blue,width: 0.5),),
           border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(8)), )

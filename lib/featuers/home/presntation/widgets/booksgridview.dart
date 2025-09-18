@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gp/core/utilits/popups.dart';
 import 'package:gp/featuers/home/presntation/manger/cubits/homebookscubit/homecubit.dart';
 import 'package:gp/featuers/home/presntation/manger/cubits/homebookscubit/homestates.dart';
 import 'package:gp/featuers/home/presntation/widgets/bookitem.dart';
@@ -54,6 +55,8 @@ class _BooksGridViewState extends State<BooksGridView> {
         builder: (context, state) {
           final books = context.read<HomeCubit>().books;
  if (state is BooksFailed) {
+  print('fffffffffffffffffff');
+ Popups().showFailDialog(context);
           return Center(child: Text('network problem'),);
         }
           if (state is BooksLoading ) {
@@ -65,7 +68,7 @@ class _BooksGridViewState extends State<BooksGridView> {
               clipBehavior: Clip.none,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisSpacing: 9,
-                mainAxisSpacing: 8,
+                mainAxisSpacing: 4,
                 childAspectRatio: 0.56,
                 crossAxisCount: 3,
               ),
@@ -88,7 +91,7 @@ class _BooksGridViewState extends State<BooksGridView> {
               clipBehavior: Clip.none,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisSpacing: 9,
-                mainAxisSpacing: 8,
+                mainAxisSpacing: 2,
                 childAspectRatio: 0.56,
                 crossAxisCount: 3,
               ),

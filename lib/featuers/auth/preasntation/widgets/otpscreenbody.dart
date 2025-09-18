@@ -66,21 +66,12 @@ Navigator.pushNamed(context, '/Change Password',arguments: accesstoken);
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w600)),
                     SizedBox(height: 10.r),
-                    Row(
-                      children: [
-                        Text('We sent a reset link to ',
-                            style: TextStyle(
-                                color: color,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600)),
-                        Text('contact@dscode...com',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600))
-                      ],
-                    ),
-                    Text('enter 5 digit code that mentioned in the email',
+                    Text('We sent a reset code for your email ',
+                        style: TextStyle(
+                            color: color,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600)),
+                    Text('enter 4 digit code that mentioned in the email',
                         style: TextStyle(
                             color: color,
                             fontSize: 14.sp,

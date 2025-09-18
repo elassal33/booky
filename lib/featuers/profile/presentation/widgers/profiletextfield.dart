@@ -88,7 +88,7 @@ class _ProfileTextFieldState extends State<ProfileTextField> {
         onChanged:widget.onChanged,
         readOnly: widget.hint.toLowerCase().contains('birth') || widget.hint.toLowerCase().contains('email'),
 
-          decoration: InputDecoration(errorText: widget.error,
+          decoration: InputDecoration(errorText: widget.error,errorMaxLines: 4,
            
      
           contentPadding:

@@ -39,9 +39,9 @@ class _ExploreState extends State<Explore> {
               },
               controller: controller,
                children:const [ 
-         Exploreitem() ,
-         Exploreitem() ,
-         Exploreitem() ,
+         Exploreitem(text: '"Step into a world of endless stories. Explore, immerse, and enjoy seamless reading anytime,anywhere"',) ,
+         Exploreitem(text: '"Uncover hidden gems and bestsellers all in one place. Reading made simple, smart, and satisfying."') ,
+         Exploreitem(text: '"From classics to the latest releases—Booky brings the joy of reading to your fingertips."') ,
               
                 ],
               

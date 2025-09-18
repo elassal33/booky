@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp/featuers/home/data/repo/bookservice.dart';
 import 'package:gp/featuers/home/presntation/manger/cubits/gategoriescubit/categoriesstates.dart';
 
-class categoriescubit extends Cubit<categoriesstates> {
-  categoriescubit() : super(Intial());
+class Categoriescubit extends Cubit<categoriesstates> {
+  Categoriescubit() : super(Intial());
   
   Bookservice _service = Bookservice();
   List categories = []; // Keeping dynamic type as in original

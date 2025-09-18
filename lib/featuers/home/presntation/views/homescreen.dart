@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gp/const.dart';
 import 'package:gp/featuers/home/presntation/manger/cubits/gategoriescubit/categoriescubit.dart';
 import 'package:gp/featuers/home/presntation/manger/cubits/homebookscubit/homecubit.dart';
@@ -17,21 +18,21 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<categoriescubit>(
-          create: (context) => categoriescubit(),
+        BlocProvider<Categoriescubit>(
+          create: (context) => Categoriescubit(),
         ),
       ],
       child: CustomScrollView(
         slivers: [
-      const    SliverToBoxAdapter(
+          SliverToBoxAdapter(
             child: SizedBox(
-              height: 70,
+              height: 60.h,
             ),
           ),
       const    Explore(),
     const      SliverToBoxAdapter(
               child: Padding(
-            padding: EdgeInsets.only(left: 8, bottom: 16),
+            padding: EdgeInsets.only(left: 8, bottom: 8),
             child: Text(
               'Authors',
               style: TextStyle(
@@ -49,18 +50,15 @@ class HomeScreen extends StatelessWidget {
           ),
      const     SliverToBoxAdapter(
               child: Padding(
-            padding: EdgeInsets.only(left: 8),
+            padding: EdgeInsets.only(left: 8,top: 8),
             child: Text(
               'categories',
               style: TextStyle(
                   color: color, fontSize: 16, fontWeight: FontWeight.w700),
             ),
           )),
-          SliverFillRemaining(
-              child: BlocProvider(
-            create: (context) => HomeCubit(),
-            child: Categorys(),
-          ))
+   const       SliverFillRemaining(
+              child: const Categorys())
         ],
       ),
     );

@@ -6,6 +6,7 @@ class BookModel{
     required this.description,
     required this.price,
     required this.rate,
+    required this.israted,
     required this.cover,
     required this.pages,
     required this.isfav,
@@ -22,6 +23,7 @@ class BookModel{
   final String description;
   final String price;
   final int rate;
+  final bool israted;
   final String cover;
   final int pages;
   final bool isfav;
@@ -40,6 +42,7 @@ factory BookModel.fromjson(json){
    ispurchased:  json['is_purchased'],
       price: json['price'],
       rate: json['rate'],
+      israted: json['is_rated'],
       cover: json['cover'],
       pages: json['pages'],
       language: json['language'],
@@ -75,10 +78,10 @@ class Category {
  factory Category.fromjson(json){
     return Category(id: json['id'], name: json['name'], );
   }
-  @override
+ /* @override
   String toString() {
     return 'Category(id: $id, name: $name)';
-  }
+  }*/
 }
 class BookDetailResponse {
   final BookModel book;

@@ -22,7 +22,7 @@ Future<String?>  gettoken()async{
 }) async {
   final token = await gettoken();
   
-  try {
+  
     final response = await _dio.get(
       id == 0 
         ? '$baseurl/api/v1/books?pagination=1' 
@@ -45,6 +45,7 @@ Future<String?>  gettoken()async{
     print('Status Code: ${response.statusCode}');
     
     if (response.statusCode == 200) {
+      print("donnnnnnnnnnnnnnnnnne");
       final data = response.data['data']['books'];
       final books = data.map<BookModel>((element) => BookModel.fromjson(element)).toList();
       return books;
@@ -52,16 +53,7 @@ Future<String?>  gettoken()async{
       print('Non-200 status code: ${response.statusCode}');
       return null;
     }
-  } on DioException catch (e) {
-    print('Dio Error: ${e.message}');
-    if (e.response != null) {
-      print('Response data: ${e.response?.data}');
-    }
-    return null;
-  } catch (e) {
-    print('Unexpected Error: $e');
-    return null;
-  }
+ 
 }
  Future<List<Author>?> fetchAuthors({
   required int page,
@@ -71,7 +63,7 @@ Future<String?>  gettoken()async{
   
   try {
     final response = await _dio.get(
-      '$baseurl/api/v1/authors?pagination',
+      '$baseurl/api/v1/authors?pagination=1',
       options: Options(
         followRedirects: false,
         validateStatus: (status) => status != null && status < 500,
@@ -258,4 +250,39 @@ List <BookModel>books=[];
     
     
   }
+   Future rate({required int id,required int rate}) async {
+  
+final token = await gettoken();
+  try {
+    final response = await _dio.put('$baseurl/api/v1/books/rate/$id', options: Options(
+              followRedirects: false,
+            validateStatus: (status) {
+              return status! < 500;
+            },
+            
+ headers: {
+  'Authorization': 'Bearer $token',
+  "Content-Type":"application/json",
+  "Accept" : "application/json"
+ },
+ 
+        
+      ),data: {
+        "rate":rate
+
+      },);
+
+    if (response.statusCode == 200) {
+
+    
+  print(' rate done');
+    } else {
+      throw Exception('Failed to load $id');
+     
+    }
+  } catch (e) {
+    print('Error: $e');
+    return null ;
+  }
+}
 }

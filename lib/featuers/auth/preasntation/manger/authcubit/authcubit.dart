@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp/featuers/auth/data/repo/authservice.dart';
 import 'package:gp/featuers/auth/preasntation/manger/authcubit/authstates.dart';
@@ -16,9 +17,10 @@ class AuthCubit extends  Cubit<AuthStates> {
   Map? data;
 Future<String?>  register(String email ,String password ,String fristname,String lastname,String phone)async{
     emit(Loading());
-  response= await repo.register(email:email, password:password,fristname: fristname,lastname: lastname,phone:phone);
+
+ 
 try {
-  
+   response= await repo.register(email:email, password:password,fristname: fristname,lastname: lastname,phone:phone);
     
   
 
@@ -34,8 +36,11 @@ try {
   
 
  
-// ignore: empty_catches
-} catch (e) {
+// ignore: empty_catches, unused_catch_clause
+}on DioException catch(e){
+emit(Serverproblem());
+} 
+catch (e) {
   
 }
 if(response!=null){
@@ -49,8 +54,9 @@ return response;
   }
 Future<String?>  login(String email ,String password ,)async{
     emit(Loading());
-  response= await repo.login( email:email, password:password,);
+  
 try {
+  response= await repo.login( email:email, password:password,);
  if ((response as Map).containsKey('errors') ) {
     
     if (response['errors'] != null && response['errors']!.isEmpty) {
@@ -75,9 +81,11 @@ try {
     }
     
   }
-// ignore: empty_catches
-} catch (e) {
-  
+// ignore: empty_catches, unused_catch_clause
+}on DioException catch(e){
+emit(Serverproblem());
+}  catch (e) {
+  emit(Serverproblem());
 }
 if(response!=null){
 emit(Done());
@@ -89,8 +97,9 @@ return response;
   }
 Future  requestReset(String email ,)async{
     emit(Loading());
-  response= await repo.requestreset( email:email, );
+  
 try {
+  response= await repo.requestreset( email:email, );
   if ((response as Map).containsKey('errors') ) {
     
     error=(response['errors']);
@@ -100,7 +109,10 @@ try {
     return response;
   }
   
-} catch (e) {
+// ignore: unused_catch_clause
+}on DioException catch(e){
+emit(Serverproblem());
+}  catch (e) {
   
 }
 if(response!=null){
@@ -113,8 +125,9 @@ return response;
   }
 Future  resetPassword(String password,String passtoken,)async{
     emit(Loading());
-  response= await repo.resetPassword(password: password,passtoken: passtoken  );
+ 
   try {
+     response= await repo.resetPassword(password: password,passtoken: passtoken  );
  if ((response as Map).containsKey('errors') ) {
     
     if (response['errors'] != null && response['errors']!.isEmpty) {
@@ -130,7 +143,10 @@ Future  resetPassword(String password,String passtoken,)async{
     response=null;
     return response;
   }
-  } catch (e) {
+  // ignore: unused_catch_clause
+  }on DioException catch(e){
+emit(Serverproblem());
+}  catch (e) {
     
   }
 
@@ -145,11 +161,19 @@ return response;
 
 
 Future<String?>  resend(String verificationtoken)async{
-    
-  verificationtoken2= await repo.resendToken(verificationtoken);
-
-
+   try {
+      verificationtoken2= await repo.resendToken(verificationtoken);
+      
+   // ignore: unused_catch_clause
+   }on DioException catch(e){
+emit(Serverproblem());
+} catch (e) {
+     
+   } 
+ 
 return verificationtoken2;
+
+
   }
 Future  resolvePasswordOrAccessToken(String verificationtoken,int code )async{
     emit(Loading());
@@ -174,8 +198,10 @@ try {
     }
     
   }
-// ignore: empty_catches
-} catch (e) {
+// ignore: empty_catches, unused_catch_clause
+}on DioException catch(e){
+emit(Serverproblem());
+}  catch (e) {
 
 }
 
@@ -195,8 +221,10 @@ return response;
   }
 
  socialAuth()async{
-  emit(Loading());
+  try {
+    emit(SocialLoading());
    data=   await repo.socialAuth();
+   print("dataaaaaaaaaa$data");
       if (data!=null) {
         emit(Verifyed());
         
@@ -204,9 +232,17 @@ return response;
       else{
         emit(Fiald());
       }
+    
+  // ignore: unused_catch_clause
+  }on DioException catch(e){
+emit(Serverproblem());
+}  catch (e) {
+    
+  }
+  
 }
  signInWithFacebook()async{
-  emit(Loading());
+  
    data=   await repo.socialAuthFacebook();
       if (data!=null) {
         emit(Verifyed());
@@ -216,8 +252,9 @@ return response;
         emit(Fiald());
       }
 }
-Future<UserCredential> signInWithhFacebook() async {
-  // Trigger the sign-in flow
+Future signInWithhFacebook() async {
+try {
+    // Trigger the sign-in flow
   final LoginResult loginResult = await FacebookAuth.instance.login(permissions: ['email']);
 
   // Create a credential from the access token
@@ -236,6 +273,13 @@ Future<UserCredential> signInWithhFacebook() async {
   // Once signed in, return the UserCredential
   return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
 
+// ignore: unused_catch_clause
+} on DioException catch(e){
+emit(Serverproblem());
+}
+ catch (e) {
+  
+}
 }
 
 logout()async{

@@ -9,8 +9,7 @@ class Favoriets extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
+      
           title: const Text(
             'Favoriets',
             style: TextStyle(

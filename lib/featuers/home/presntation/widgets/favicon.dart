@@ -1,6 +1,7 @@
 // fav_icon.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gp/const.dart';
 import 'package:gp/featuers/favoriets/presentation/manger/homebookscubit/favecubit.dart';
 import 'package:gp/featuers/home/data/repo/bookservice.dart';
 
@@ -55,6 +56,22 @@ late bool isFavorited;
           isFavorited = !isFavorited;
                 });
               await  service.toggle(id:int.parse(widget.id) );
+ ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(
+    backgroundColor: color,
+    content: Text(
+      isFavorited
+          ? 'The book is added to favorites!'
+          : 'The book is removed from favorites!',
+      style: const TextStyle(color: Colors.white),
+    ),
+    behavior: SnackBarBehavior.floating, // Needed for border radius to be visible
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+    margin: const EdgeInsets.all(8), // Optional: gives some space around
+  ),
+);
 
                 
             await    BlocProvider.of<FavCubit>(context).getFavBooks();

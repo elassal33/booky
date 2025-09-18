@@ -18,6 +18,7 @@ late  final BookModel book;
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
      book=   ModalRoute.of(context)!.settings.arguments as BookModel;
+     
   }
   @override
   void initState() {
@@ -35,8 +36,8 @@ return  Scaffold(
       ),
   body: Column( 
   children: [
-   const SizedBox(height: 100,),
-Align(alignment: Alignment.center,
+    SizedBox(height: 50.h,),
+/*Align(alignment: Alignment.center,
   child:   Container( decoration:const BoxDecoration(boxShadow: [
   
         BoxShadow(
@@ -60,8 +61,21 @@ Align(alignment: Alignment.center,
                              fit: BoxFit.cover,)),
   
                   ),
-),
-const  SizedBox(height: 30,)
+),*/
+ Align(
+            alignment: Alignment.center,
+            child: SizedBox(
+              height: 340.h,
+              width: 222.w,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(
+                    book.cover,
+                    fit: BoxFit.fill,
+                  )),
+            ),
+          ),
+  SizedBox(height: 20.h,)
             ,Align(
               child: Text(
                 book.title,overflow: TextOverflow.ellipsis,
@@ -73,7 +87,7 @@ const  SizedBox(height: 30,)
                 ),
               ),
             ),
-         const   SizedBox(height: 40,)
+            SizedBox(height: 20.h,)
             
      , Align(
         child: Text(
@@ -85,7 +99,7 @@ const  SizedBox(height: 30,)
                  ),
                ),
       ),
- book.record!=null? AudioPlayerScreen(recored: book.record!,):Center()
+ (book.record!=null&&book.record!.isNotEmpty)? AudioPlayerScreen(recored: book.record!,):Center()
   ],),
 );
   }

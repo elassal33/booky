@@ -6,16 +6,16 @@ class UserPrefs {
   UserPrefs(this._prefs);
 
   Future<void> saveUser({
-    required String firstName,
-    required String lastName,
+     String? firstName,
+     String? lastName,
     required String email,
     required String token,
     String? image,
     String? phone,
     String? birthdate,
   }) async {
-    await _prefs.setString('firstname', firstName);
-    await _prefs.setString('lastname', lastName);
+    await _prefs.setString('firstname', firstName ?? '');
+    await _prefs.setString('lastname', lastName ?? '');
     await _prefs.setString('email', email);
     await _prefs.setString('token', token);
     await _prefs.setString('image', image ?? '');

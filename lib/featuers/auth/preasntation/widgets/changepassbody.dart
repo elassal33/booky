@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gp/const.dart';
+import 'package:gp/core/utilits/popups.dart';
 import 'package:gp/featuers/auth/preasntation/manger/authcubit/authcubit.dart';
 import 'package:gp/featuers/auth/preasntation/manger/authcubit/authstates.dart';
 import 'package:gp/featuers/auth/preasntation/manger/forgetpasswordcubit/forgetpasswordcubit.dart';
@@ -33,6 +34,10 @@ class _ChangePassBodyState extends State<ChangePassBody> {
         ),
         body: BlocConsumer<AuthCubit, AuthStates>(
           listener: (context, state) {
+              if (state is Serverproblem) {
+        
+          Popups().showFailDialog(context);
+        }
          if (state is Done) {
             Navigator.of(context).pushNamedAndRemoveUntil( '/Login', 
               (Route<dynamic> route) => false, 

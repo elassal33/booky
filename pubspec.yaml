@@ -34,15 +34,14 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
   flutter_bloc: ^9.0.0
-  flutter_screenutil: ^5.9.3
   pinput: ^5.0.1
   flutter_native_splash: ^2.3.7
   dio: ^5.8.0+1
-  firebase_core: ^3.4.0
+  modal_progress_hud_nsn: ^0.5.1
+  firebase_core: 2.32.0
   google_sign_in: ^6.1.6
-  firebase_auth: ^5.2.0
+  firebase_auth: ^4.15.0
   flutter_windowmanager: ^0.2.0
   flutter_facebook_auth: ^6.0.1
   shared_preferences: ^2.2.0
@@ -53,6 +52,17 @@ dependencies:
   webview_flutter: ^4.8.0
   flutter_image_compress: ^2.3.0
   syncfusion_flutter_pdfviewer: ^24.1.45
+  flutter_screenutil: ^5.9.1
+  flutter_launcher_icons: ^0.14.0
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/final_icon.png"
+
+  cupertino_icons: ^1.0.2
+  
+
  
   
 
@@ -85,7 +95,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assest/images/
+    - assets/images/
  
     
 
@@ -103,19 +113,19 @@ flutter:
   fonts:
     - family: Poppins
       fonts:
-        - asset: assest/fonts/Poppins-Regular.ttf
-        - asset: assest/fonts/Poppins-Bold.ttf
-        - asset: assest/fonts/Poppins-Black.ttf
-        - asset: assest/fonts/Poppins-ExtraBold.ttf
-        - asset: assest/fonts/Poppins-Light.ttf
-        - asset: assest/fonts/Poppins-Medium.ttf
-        - asset: assest/fonts/Poppins-SemiBold.ttf
-        - asset: assest/fonts/Poppins-Thin.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins-Black.ttf
+        - asset: assets/fonts/Poppins-ExtraBold.ttf
+        - asset: assets/fonts/Poppins-Light.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins-Thin.ttf
         
 
     - family: Pacifico 
       fonts:
-        - asset: assest/fonts/Pacifico-Regular.ttf
+        - asset: assets/fonts/Pacifico-Regular.ttf
 
   #
   # For details regarding fonts from package dependencies,

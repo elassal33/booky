@@ -9,7 +9,7 @@ import 'package:gp/featuers/profile/presentation/manger/birthdatecubit/birthdate
 import 'package:gp/featuers/profile/presentation/manger/birthdatecubit/birthdatestates.dart';
 import 'package:gp/featuers/profile/presentation/manger/editprofilecubit/editeprofilecubit.dart';
 import 'package:gp/featuers/profile/presentation/manger/editprofilecubit/editeprofilesates.dart';
-import 'package:gp/featuers/profile/presentation/widgers/imageavatar.dart';
+import 'package:gp/featuers/profile/presentation/widgers/editavatar.dart';
 import 'package:gp/featuers/profile/presentation/widgers/profilebotton.dart';
 import 'package:gp/featuers/profile/presentation/widgers/profiletextfield.dart';
 import 'package:image_picker/image_picker.dart';
@@ -81,7 +81,7 @@ Future<File> _compressImage(File file) async {
   try {
     // Step 1: Pick the image
     final pickedFile = await _picker.pickImage(
-      source: ImageSource.camera,
+      source: ImageSource.gallery,
       maxWidth: 1200,       // Limits image width
       maxHeight: 1200,      // Limits image height
       imageQuality: 90,     // Quality percentage (1-100)
@@ -154,8 +154,21 @@ Future<File> _compressImage(File file) async {
 
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(backgroundColor: color,content: Text('Profile updated locally!',style: TextStyle(color: Colors.white),)),
-            );
+  SnackBar(
+    backgroundColor: color,
+    content:const Text(
+    "Profile updated successfully!",
+      style:  TextStyle(color: Colors.white),
+    ),
+    behavior: SnackBarBehavior.floating, // Needed for border radius to be visible
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+    ),
+    margin: const EdgeInsets.all(8), // Optional: gives some space around
+  ),
+);
+
+           
           }
         }
       },
@@ -170,133 +183,139 @@ Future<File> _compressImage(File file) async {
             });
           }
         },
-        child: Scaffold(
-          body: Form(key: _formKey,
-            child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              children: [
-                const SizedBox(height: 100),
-              //  CircleAvatar(backgroundImage: NetworkImage(imageUrl!),)
-              ProfileAvatar(imageFile: _imageFile, imageUrl: imageUrl, firstName: firstname.text, onPickImage: _pickImage, onRemoveImage:() {
-                            setState(() {
-                              _imageFile = null;
-                            });
-                          }, )
-              ,  
-               
-                const SizedBox(height: 10),
-                Row(
-  children: [
-    // First Name Column
-    Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'First name',
-            style: TextStyle(
-              fontSize: 14,
-              color: color,
-              fontWeight: FontWeight.w500,
+        child: SafeArea(
+          child: Scaffold(
+             appBar: AppBar(
+    
+        
+                ),
+            body: Form(key: _formKey,
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 50),
+                children: [
+                   SizedBox(height: 50.h),
+                //  CircleAvatar(backgroundImage: NetworkImage(imageUrl!),)
+                ProfileAvatar(imageFile: _imageFile, imageUrl: imageUrl, email: email.text, firstName: firstname.text,onPickImage: _pickImage, onRemoveImage:() {
+                              setState(() {
+                                _imageFile = null;
+                              });
+                            }, )
+                ,  
+                 
+                  const SizedBox(height: 10),
+                  Row(
+            children: [
+              // First Name Column
+              Expanded(
+                child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'First name',
+              style: TextStyle(
+                fontSize: 14,
+                color: color,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-          ),
-           SizedBox(height: 4.h), // Space between label and field
-          ProfileTextField(width: 150,
-            error: firstnameerror,
-            lastname: firstname,
-            limit: 10,
-            hint: 'First name',
-            onChanged: (input) {
-              inputtfirstname = input;
-              setState(() => firstnameerror = null);
-            },
-          ),
-        ],
-      ),
-    ),
-     SizedBox(width: 16.w), // Fixed spacing instead of Spacer()
-    // Last Name Column
-    Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Last name',
-            style: TextStyle(
-              fontSize: 14,
-              color: color,
-              fontWeight: FontWeight.w500,
+             SizedBox(height: 4.h), // Space between label and field
+            ProfileTextField(width: 150,
+              error: firstnameerror,
+              lastname: firstname,
+              limit: 10,
+              hint: 'First name',
+              onChanged: (input) {
+                inputtfirstname = input;
+                setState(() => firstnameerror = null);
+              },
             ),
+          ],
+                ),
+              ),
+               SizedBox(width: 16.w), // Fixed spacing instead of Spacer()
+              // Last Name Column
+              Expanded(
+                child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Last name',
+              style: TextStyle(
+                fontSize: 14,
+                color: color,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 4), // Space between label and field
+            ProfileTextField(width: 150,
+              error: lastnameerror,
+              lastname: lastname,
+              limit: 10,
+              hint: 'Last name',
+              onChanged: (input) {
+                inputtlastname = input;
+                setState(() => lastnameerror = null);
+              },
+            ),
+          ],
+                ),
+              ),
+            ],
           ),
-          const SizedBox(height: 4), // Space between label and field
-          ProfileTextField(width: 150,
-            error: lastnameerror,
-            lastname: lastname,
-            limit: 10,
-            hint: 'Last name',
-            onChanged: (input) {
-              inputtlastname = input;
-              setState(() => lastnameerror = null);
-            },
-          ),
-        ],
-      ),
-    ),
-  ],
-),
-                const SizedBox(height: 10),
-                const Text('Email',
-                    style: TextStyle(
-                        fontSize: 14, color: color, fontWeight: FontWeight.w500)),
-                ProfileTextField(
-                  lastname: email,
-                  limit: 40,
-                  hint: 'Email',
-                  onChanged: (_) {},
-                  width: 320,
-                  
-                ),
-                const Text('Phone',
-                    style: TextStyle(
-                        fontSize: 14, color: color, fontWeight: FontWeight.w500)),
-                ProfileTextField(error: phoneerror,
-                  lastname: phone,
-                  limit: 11,
-                  hint: 'Phone number',
-                  onChanged: (input)  { inputtphone = input; 
-                             setState(() =>phoneerror = null);
-                          },
-                  width: 320,
-                ),
-                const Text('Birth date',
-                    style: TextStyle(
-                        fontSize: 14, color: color, fontWeight: FontWeight.w500)),
-                ProfileTextField(
-                  lastname: date,
-                  limit: 10,
-                  hint: 'Birthdate',
-                  onChanged: (_) {},
-                  width: 320,
-               
-                ),
-                const SizedBox(height: 20),
-                ProfileBotton(
-                  onpressed: () async{
-                      if (_formKey.currentState!.validate()) {
-                          newurl=await        BlocProvider.of<EditeprofileCubit>(context).updateProfile(
-                      fristname: inputtfirstname ?? '',
-                      lastname: inputtlastname ?? '',
-                      birthdate: inputtdate,
-                      image: _imageFile,
-                      phone: inputtphone,
-                    );
-                        }
-                   
+                  const SizedBox(height: 10),
+                  const Text('Email',
+                      style: TextStyle(
+                          fontSize: 14, color: color, fontWeight: FontWeight.w500)),
+                  ProfileTextField(
+                    lastname: email,
+                    limit: 40,
+                    hint: 'Email',
+                    onChanged: (_) {},
+                    width: 320,
                     
-                  },
-                  name: 'Update',
-                ),
-              ],
+                  ),
+                  const Text('Phone',
+                      style: TextStyle(
+                          fontSize: 14, color: color, fontWeight: FontWeight.w500)),
+                  ProfileTextField(error: phoneerror,
+                    lastname: phone,
+                    limit: 11,
+                    hint: 'Phone number',
+                    onChanged: (input)  { inputtphone = input; 
+                               setState(() =>phoneerror = null);
+                            },
+                    width: 320,
+                  ),
+                  const Text('Birth date',
+                      style: TextStyle(
+                          fontSize: 14, color: color, fontWeight: FontWeight.w500)),
+                  ProfileTextField(
+                    lastname: date,
+                    limit: 10,
+                    hint: 'Birthdate',
+                    onChanged: (_) {},
+                    width: 320,
+                 
+                  ),
+                  const SizedBox(height: 20),
+                  ProfileBotton(
+                    onpressed: () async{
+                        if (_formKey.currentState!.validate()) {
+                            newurl=await        BlocProvider.of<EditeprofileCubit>(context).updateProfile(
+                        fristname: inputtfirstname ?? '',
+                        lastname: inputtlastname ?? '',
+                        birthdate: inputtdate,
+                        image: _imageFile,
+                        phone: inputtphone,
+                      );
+                          }
+                     
+                      
+                    },
+                    name: 'Update',
+                  ),
+                ],
+              ),
             ),
           ),
         ),

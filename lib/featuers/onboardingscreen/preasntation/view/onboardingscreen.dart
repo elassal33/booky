@@ -47,9 +47,9 @@ return  Scaffold(
             },
             controller: controller,
              children:const [ 
-           PageViewBody( image: 'assest/images/rafiki.png', text1: 'Read your favourite books',text2: "All your favourites book in one place, read",text3: 'any book, staying at home, on travelling, or',text4:'anywhere else')
-         ,  PageViewBody( image: 'assest/images/pana.png', text1: 'Personalized for You',text2: '"Get book suggestions based on your',text3: 'interests and reading habits. We help you',text4:'find your next great read!"')    , 
-             PageViewBody( image: 'assest/images/bro.png',text1: ' Fast and Secure Shopping',text2: '"Enjoy a seamless shopping experience, with',text3: ' easy checkout and multiple reading options',text4:'—whether physical or digital.”') , 
+           PageViewBody( image: 'assets/images/rafiki.png', text1: 'Read your favourite books',text2: "All your favourites book in one place, read",text3: 'any book, staying at home, on travelling, or',text4:'anywhere else')
+         ,  PageViewBody( image: 'assets/images/pana.png', text1: 'Personalized for You',text2: '"Get book suggestions based on your',text3: 'interests and reading habits. We help you',text4:'find your next great read!"')    , 
+             PageViewBody( image: 'assets/images/bro.png',text1: ' Fast and Secure Shopping',text2: '"Enjoy a seamless shopping experience, with',text3: ' easy checkout and multiple reading options',text4:'—whether physical or digital.”') , 
             
               ],
             

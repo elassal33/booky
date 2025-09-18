@@ -6,7 +6,8 @@ import 'package:gp/featuers/home/data/models/bookmodel.dart';
 
 class Searchitem extends StatelessWidget{
   final BookModel book;
-  const Searchitem({super.key,required this.book});
+  final String tag;
+  const Searchitem({super.key,required this.book,required this.tag});
 
 
 
@@ -32,7 +33,7 @@ class Searchitem extends StatelessWidget{
        
       Padding(
       padding:  EdgeInsets.all(8.0.r),
-      child: SizedBox(height:80.h,width:80.w ,child : Image.network(book.cover)),
+      child: SizedBox(height:80.h,width:80.w ,child : Hero(tag:tag ,child: Image.network(book.cover))),
       ),
      Container( width:270.w ,
        child:    Column(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.start,

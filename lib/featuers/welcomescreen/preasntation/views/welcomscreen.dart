@@ -20,7 +20,7 @@ return Scaffold(
     
       children: [
     SizedBox(height:91.h,),
-   Image.asset('assest/images/cuate.png',width: 412.w,height: 458.h,),
+   Image.asset('assets/images/cuate.png',width: 412.w,height: 458.h,),
     
           
     SizedBox(height: 10.r),

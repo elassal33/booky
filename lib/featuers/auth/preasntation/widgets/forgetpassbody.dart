@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gp/const.dart';
+import 'package:gp/core/utilits/popups.dart';
 import 'package:gp/featuers/auth/preasntation/manger/authcubit/authcubit.dart';
 import 'package:gp/featuers/auth/preasntation/manger/authcubit/authstates.dart';
 import 'package:gp/featuers/auth/preasntation/manger/forgetpasswordcubit/forgetpasswordcubit.dart';
@@ -32,6 +33,10 @@ class _ForgetPassBodyState extends State<ForgetPassBody> {
         ),
         body: BlocConsumer<AuthCubit, AuthStates>(
           listener: (context, state) {
+  if (state is Serverproblem) {
+        
+          Popups().showFailDialog(context);
+        }
             if (state is Done) {
               print('this is  $verificationtoken');
              Navigator.pushNamed(context, '/otp code',arguments: verificationtoken); 
@@ -40,7 +45,10 @@ class _ForgetPassBodyState extends State<ForgetPassBody> {
              if (state is Fiald) {
           
           errors=BlocProvider.of<AuthCubit>(context).error;
-          extractStrings(errors!);
+
+          if (errors!=null) {
+            extractStrings(errors!);
+          }
           
          
          

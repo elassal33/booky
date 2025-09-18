@@ -3,9 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gp/const.dart';
 
 class Exploreitem extends StatelessWidget {
-  const Exploreitem({
+  const Exploreitem({required this.text,
     super.key,
   });
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +25,11 @@ class Exploreitem extends StatelessWidget {
         children: [
           Positioned(top: 20,left: 20,
             child: SizedBox(width: 250,height: 60,
-              child: Text('"Step into a world of endless stories. Explore, immerse, and enjoy seamless reading anytime,anywhere"',maxLines: 3,style: TextStyle(overflow:TextOverflow.ellipsis,color:
+              child: Text(text,maxLines: 3,style: TextStyle(overflow:TextOverflow.ellipsis,color:
                Colors.white,fontSize: 13.sp,fontWeight: FontWeight.w400),),
             ),
           )
-          ,Positioned(bottom: 0,right: 0,child: Image.asset('assest/images/image 665.png'))
+          ,Positioned(bottom: 0,right: 0,child: Image.asset('assets/images/image 665.png'))
         ],
       ),),
     );

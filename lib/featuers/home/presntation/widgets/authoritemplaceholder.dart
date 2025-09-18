@@ -15,8 +15,8 @@ class AuthorItemPlaceholder extends StatelessWidget {
           children: [
             // Circular avatar placeholder
             Container(
-              width: 40,
-              height: 40,
+              width: 45,
+              height: 45,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.white,
@@ -26,7 +26,7 @@ class AuthorItemPlaceholder extends StatelessWidget {
             // Name placeholder
             Container(
               width: 40,
-              height: 8,
+              height: 10,
               color: Colors.white,
             ),
           ],

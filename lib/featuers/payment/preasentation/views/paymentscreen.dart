@@ -24,6 +24,7 @@ class _PaymobPaymentPageState extends State<PaymobPaymentPage> {
   void initState() {
     super.initState();
     _controller = WebViewController()
+    
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
         NavigationDelegate(

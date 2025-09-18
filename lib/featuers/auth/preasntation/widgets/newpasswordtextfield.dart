@@ -39,7 +39,7 @@ class _NewPasswordTextFieldState extends State<NewPasswordTextField> {
         },
         obscureText: _isObscured,
         onChanged:widget.onChanged,
-          decoration: InputDecoration(errorText: widget.error,suffixIcon: GestureDetector(
+          decoration: InputDecoration(errorText: widget.error,errorMaxLines: 4,suffixIcon: GestureDetector(
              child:  Icon(
                 _isObscured ? Icons.visibility_off : Icons.visibility,
                 color: color,

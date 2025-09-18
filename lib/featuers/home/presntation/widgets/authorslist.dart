@@ -15,16 +15,17 @@ class Authorslist extends StatefulWidget {
 class _AuthorslistState extends State<Authorslist> {
   final ScrollController _scrollController = ScrollController();
 
-  void _setupScrollListener(HomeCubit cubit) {
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels >=
-              _scrollController.position.maxScrollExtent - 100 &&
-          !cubit.isLoadingMore &&
-          cubit.hasMore) {
-        cubit.loadauthors();
-      }
-    });
-  }
+ void _setupScrollListener(HomeCubit cubit) {
+  _scrollController.addListener(() {
+    if (_scrollController.position.pixels >=
+            _scrollController.position.maxScrollExtent - 100 &&
+        !cubit.isLoadingMore &&
+        cubit.hasMore) {
+      cubit.loadauthors();
+    }
+  });
+}
+
 
   @override
   void initState() {
@@ -38,44 +39,52 @@ class _AuthorslistState extends State<Authorslist> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, Homestates>(
       builder: (context, state) {
-        
         final cubit = context.read<HomeCubit>();
+
         if (state is BooksFailed) {
-          return Center(child: Text(state.message),);
-          
+          return Center(
+            child: Text(
+              state.message,
+              style: const TextStyle(color: Colors.grey),
+            ),
+          );
         }
- if (cubit.state is BooksLoading) {
-               
-                return SizedBox(height: 150,
-                  child: ListView.builder(   scrollDirection: Axis.horizontal,itemCount: 7,itemBuilder: (context,index){
-                    return const Center(child: AuthorItemPlaceholder(),);
-                  }),
-                );
-              } 
+
+        if (state is BooksLoading && cubit.authors.isEmpty) {
+          return SizedBox(
+            height: 150,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 7,
+              itemBuilder: (context, index) {
+                return const Center(child: AuthorItemPlaceholder());
+              },
+            ),
+          );
+        }
+
         return SizedBox(
-          height: 150, // Adjust height as needed
+          height: 150,
           child: ListView.builder(
             controller: _scrollController,
             scrollDirection: Axis.horizontal,
-            itemCount: cubit.authors.length + (cubit.hasMore ? 1 : 0),
+            itemCount: cubit.authors.length,
             itemBuilder: (context, index) {
-              if (index < cubit.authors.length) {
-                final author = cubit.authors[index];
-                return GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, '/author',arguments: author),
-                  child: Authoritem(author: author!),
-                );
-              }
-                  else {
-                // Show loading indicator at the end if more data is expected
-                return const SizedBox();
-              }
-           
+              final author = cubit.authors[index];
+              return GestureDetector(
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  '/author',
+                  arguments: author,
+                ),
+                child: Hero(
+                  tag: '${author!.id} ${author.name}',
+                  child: Authoritem(author: author),
+                ),
+              );
             },
           ),
-         
         );
-
       },
     );
   }

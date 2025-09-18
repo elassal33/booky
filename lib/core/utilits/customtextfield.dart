@@ -41,7 +41,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         
         onChanged: widget.onChanged,
         obscureText: widget.hint.contains('Password')? _isObscured:false,
-          decoration: InputDecoration(errorText: widget.error,suffixIcon:widget.hint.contains('Password')? GestureDetector(
+          decoration: InputDecoration(errorText: widget.error,errorMaxLines:4,suffixIcon:widget.hint.contains('Password')? GestureDetector(
              child:  Icon(
                 _isObscured ? Icons.visibility_off : Icons.visibility,
                 color: color,

@@ -13,7 +13,7 @@ class AuthService {
   
 Future register({required String  email,required String password,required String fristname,required String lastname,required String phone}) async {
   final dio = Dio();
-  try {
+  
     final response = await dio.post(
       '$baseurl/api/v1/auth/register', 
       options: Options(
@@ -43,9 +43,7 @@ Future register({required String  email,required String password,required String
      else {
       return null;
     }
-  } catch (e) {
-    return null;
-  }
+  
 }  
 
 
@@ -53,7 +51,7 @@ Future register({required String  email,required String password,required String
 Future login({required String  email,required String password,}) async {
   final dio = Dio();
 
-  try {
+  
     final response = await dio.post(
       '$baseurl/api/v1/auth/login', 
       options: Options(
@@ -103,15 +101,12 @@ Future login({required String  email,required String password,}) async {
       print('Response data: ${response.data}');
       return null;
     }
-  } catch (e) {
-    print('Error occurred: $e');
-    return null;
-  }
+   
 }  
 Future requestreset({required String  email}) async {
   final dio = Dio();
 
-  try {
+  
     final response = await dio.post(
       '$baseurl/api/v1/auth/request-reset-password', 
       options: Options(
@@ -144,15 +139,12 @@ if (response.statusCode==422) {
       print('Response data: ${response.data}');
       return null;
     }
-  } catch (e) {
-    print('Error occurred: $e');
-    return null;
-  }
+
 }  
 Future resetPassword({required String  password,required String passtoken}) async {
   final dio = Dio();
 
-  try {
+ 
     final response = await dio.post(
       '$baseurl/api/v1/auth/reset-password', 
       options: Options(
@@ -183,15 +175,14 @@ Future resetPassword({required String  password,required String passtoken}) asyn
       print('Response data: ${response.data}');
       return null;
     }
-  } catch (e) {
-    print('Error occurred: $e');
-    return null;
-  }
+  
+   
+ 
 }  
 Future resolvePasswordOrAccessToken(String verificationToken, int code) async {
   final dio = Dio();
 
-  try {
+
     final response = await dio.post(
       '$baseurl/api/v1/auth/verify-otp',
       options: Options(
@@ -238,16 +229,13 @@ Future resolvePasswordOrAccessToken(String verificationToken, int code) async {
     print('OTP verification failed. Status: ${response.statusCode}');
     print('Response: ${response.data}');
     return null;
-  } catch (e) {
-    print('OTP verification error: $e');
-    return null;
-  }
+ 
 }
   
 Future<String?> resendToken(String verificationtoken, ) async {
   final dio = Dio();
 
-  try {
+
     final response = await dio.post(
       '$baseurl/api/v1/auth/resend-otp', 
        options: Options(
@@ -275,18 +263,18 @@ Future<String?> resendToken(String verificationtoken, ) async {
       print('Response data: ${response.data}');
       return null;
     }
-  } catch (e) {
-    print('Error occurred: $e');
-    return null;
-  }
+
   
 }  
 
 
 Future<Map?> socialAuth() async {
+        final prefs = await SharedPreferences.getInstance();
+final userd = UserPrefs(prefs);
   final dio = Dio();
+
   User? user=await signInWithGoogle();
-  try {
+ print(user);
     final response = await dio.post(
       '$baseurl/api/v1/auth/social-login', 
       options: Options(
@@ -298,35 +286,41 @@ Future<Map?> socialAuth() async {
   "Content-Type":"application/json",
   "Accept" : "application/json"
  }
-        
       ),
       data:{
         
         "email": user!.email,
     "social_type": "google",
-    "social_id": user.uid
-       
-
-      },
-
-    );
-
+    "social_id": user.uid},);
     if (response.statusCode == 200) {
+      final userData = response.data['data'];
+   try {
+  await userd.saveUser(
+    firstName: userData['first_name'],
+    lastName: userData['last_name'], 
+    email: userData['email'],
+    phone: userData['phone'],
+    image: userData['image'],
+    birthdate: userData['birth_date'],
+    token: userData['access_token'],
+  );
+  print("User data saved successfully!");
+} catch (e) {
+  print("Error saving user data: $e");
+}
+            print(200);
+      print(response.data);
       return response.data;
     } else {
       print('Failed to get token. Status code: ${response.statusCode}');
       print('Response data: ${response.data}');
       return null;
     }
-  } catch (e) {
-    print('Error occurred: $e');
-    return null;
-  }
 }  
 Future<Map?> socialAuthFacebook() async {
   final dio = Dio();
-  Map? user=await signInWitFacebook();
-  try {
+  Map? facebookuser=await signInWitFacebook();
+
     final response = await dio.post(
       '$baseurl/api/v1/auth/social-login', 
       options: Options(
@@ -340,28 +334,37 @@ Future<Map?> socialAuthFacebook() async {
  }
         
       ),
-      data:{
+      data:facebookuser!['email']!=null? {
         
-        "email": user!['email'],
+        "email":  facebookuser['email'],
     "social_type": "google",
-    "social_id": user['id']
+    "social_id": facebookuser['id']
        
+
+      }:{
 
       },
 
     );
-
+final prefs = await SharedPreferences.getInstance();
     if (response.statusCode == 200) {
+       final userData = response.data['data'];
+       final user = UserPrefs(prefs);
+    await    user.saveUser(firstName: userData['first_name'],
+         lastName: userData['last_name'], 
+         email: userData['email'],
+         phone: userData['phone'],
+         image: facebookuser["picture"]?["data"]?["url"] ,
+          
+         birthdate: userData['birth_date'],
+          token: userData['access_token']);
       return response.data;
     } else {
       print('Failed to get token. Status code: ${response.statusCode}');
       print('Response data: ${response.data}');
       return null;
     }
-  } catch (e) {
-    print('Error occurred: $e');
-    return null;
-  }
+
 }  
 
 
@@ -405,11 +408,13 @@ Future<Map?> signInWitFacebook() async {
     if (result.status == LoginStatus.success) {
       // Retrieve user data
       final userData = await FacebookAuth.instance.getUserData(
-        fields: "name,email,id",
+        fields: "name,email,id,picture.width(200)",
       );
       final String? name = userData["name"];
       final String? email = userData["email"];
       final String? uid = userData["id"];
+      final String? photoUrl = userData["picture"]?["data"]?["url"] ?? 
+          "https://graph.facebook.com/$uid/picture?type=large";
 
       
       
@@ -419,6 +424,7 @@ Future<Map?> signInWitFacebook() async {
       print('Name: $name');
       print('Email: $email');
       print('id: $uid');
+      print('photoo: $photoUrl');
        return userData;
       
     } else {
@@ -450,6 +456,8 @@ final token = await gettoken();
       ),);
 print("wwwwwwwwwwwwwww$response.statusCode");
     if (response.statusCode == 200) {
+        await googleSignIn.signOut();
+      await FacebookAuth.instance.logOut();
 return'done';
     
   

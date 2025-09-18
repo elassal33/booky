@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gp/const.dart';
+import 'package:gp/core/utilits/popups.dart';
 import 'package:gp/featuers/home/presntation/manger/cubits/gategoriescubit/categoriescubit.dart';
 import 'package:gp/featuers/home/presntation/manger/cubits/gategoriescubit/categoriesstates.dart';
 import 'package:gp/featuers/home/presntation/widgets/booksgridview.dart';
@@ -23,7 +24,7 @@ class _CategorysState extends State<Categorys> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<categoriescubit>(context).getCategories();
+    BlocProvider.of<Categoriescubit>(context).getCategories();
   }
 
   void _buildTabsAndLists() {
@@ -46,13 +47,20 @@ class _CategorysState extends State<Categorys> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<categoriescubit, categoriesstates>(
+    return BlocConsumer<Categoriescubit, categoriesstates>(
+      listener: (context, state) {
+          if (state is Failed) {
+         
+          Popups().showFailDialog(context);
+          }
+      },
       builder: (context, state) {
         if (state is Failed) {
-          return Center(child: Text('network problem'));
+        
+          return const Center(child: Text('network problem',style: TextStyle(color: Colors.grey),));
         }
         if (state is Donee) {
-          categories = BlocProvider.of<categoriescubit>(context).categories;
+          categories = BlocProvider.of<Categoriescubit>(context).categories;
           _buildTabsAndLists();
           
           return DefaultTabController(
@@ -74,9 +82,12 @@ class _CategorysState extends State<Categorys> {
                   tabs: tabs,
                 ),
                 Expanded(
-                  child: TabBarView(
-                    clipBehavior: Clip.hardEdge,
-                    children: lists,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: TabBarView(
+                      clipBehavior: Clip.hardEdge,
+                      children: lists,
+                    ),
                   ),
                 ),
               ],

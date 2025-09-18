@@ -41,35 +41,43 @@ class _SearchBodyState extends State<SearchBody> {
                   if (state is Found) {
                     return ListView.builder(
                       itemCount: books!.length,
-                      itemBuilder: (context, count) => GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context, 
-                            '/bookdetails', 
-                            arguments: {
-                              "index": count.toString(),
-                              "book": books![count]
-                            },
-                          );
-                        },
-                        child: Searchitem(book: books![count]),
-                      ),
+                      itemBuilder: (context, count) {
+                        final book = books![count];
+                        final tag = 'search_${book.id}';
+
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/bookdetails',
+                              arguments: {
+                                "index": tag,
+                                "book": book,
+                              },
+                            );
+                          },
+                          child: Searchitem(book: book, tag: tag),
+                        );
+                      },
                     );
                   }
+
                   if (state is Fail) {
-                     return const Text('not found');
+                    return const Text('not found');
                   }
+
                   if (state is Initial) {
                     return const Text(
                       'start search',
                       style: TextStyle(fontSize: 18),
                     );
                   }
+
                   if (state is Loading) {
                     return const CircularProgressIndicator();
-                  } else {
-                    return const Text('not found');
                   }
+
+                  return const Text('not found');
                 },
               ),
             ),

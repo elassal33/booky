@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gp/featuers/home/data/models/bookmodel.dart';
 
 class Authoritem extends StatelessWidget {
@@ -12,27 +13,29 @@ final Author author;
     
       padding: const EdgeInsets.only(left: 8,right: 8),
     
-      child:   Column(children: [
-    
-      
-    
-        CircleAvatar(backgroundImage: NetworkImage(author.image),radius: 20,),
-    
-      
-    
-        SizedBox(height: 10,),
-    
-      
-    
-        Text(author.name,style: TextStyle(color: Colors.black,fontSize: 8,fontWeight: FontWeight.w400),)
-    
-      
-    
-      
-    
-      
-    
-      ],),
+      child:   Container( width: 70.w,
+        child: Column(children: [
+            
+        
+            
+          CircleAvatar(backgroundImage: NetworkImage(author.image),radius: 25.r,),
+            
+        
+            
+          SizedBox(height: 8.h,),
+            
+        
+            
+          Text( overflow: TextOverflow.ellipsis, author.name,style: TextStyle(color:Colors.grey ,fontSize: 10.sp,fontWeight: FontWeight.w700),)
+            
+        
+            
+        
+            
+        
+            
+        ],),
+      ),
     
     );
   }

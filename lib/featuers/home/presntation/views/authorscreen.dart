@@ -17,8 +17,7 @@ class Authorscreen extends StatelessWidget {
     final Author author = ModalRoute.of(context)!.settings.arguments as Author;
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
+        
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,7 +26,7 @@ class Authorscreen extends StatelessWidget {
             author: author,
           ),
           SizedBox(
-            height: 30,
+            height: 30.h,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 16),

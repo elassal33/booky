@@ -4,12 +4,13 @@ import 'package:gp/const.dart';
 
 class BookBotton extends StatelessWidget {
   const BookBotton({
+     this.isloading,
     super.key,
     required this.onpressed,
     required this.name,
    
   });
-
+final bool? isloading;
   final void Function()? onpressed;
   final String name;
   
@@ -31,7 +32,7 @@ class BookBotton extends StatelessWidget {
           maximumSize: MaterialStateProperty.all(Size(150, 48)),
         ),
         onPressed: onpressed,
-        child:Text(name,
+        child:isloading ==true?const CircularProgressIndicator(color: Colors.white,) : Text(name,
             style: const TextStyle(
                 color: Colors.white,
                 fontSize: 15,

@@ -11,8 +11,12 @@ import 'package:gp/featuers/main/presentation/views/MainScreen.dart';
 import 'package:gp/featuers/onboardingscreen/preasntation/view/onboardingscreen.dart';
 import 'package:gp/featuers/pdf/presentaion/views/pdf.dart';
 import 'package:gp/featuers/playrecord/preasntation/views/bookrecord.dart';
+import 'package:gp/featuers/profile/presentation/views/contactus.dart';
 import 'package:gp/featuers/profile/presentation/views/editprofile.dart';
-import 'package:gp/featuers/profile/presentation/widgers/contactus.dart';
+import 'package:gp/featuers/profile/presentation/views/faq.dart';
+import 'package:gp/featuers/profile/presentation/views/policy.dart';
+import 'package:gp/featuers/profile/presentation/views/terms.dart';
+
 import 'package:gp/featuers/splash/presntation/veiws/splashscreen.dart';
 import 'package:gp/featuers/welcomescreen/preasntation/views/welcomscreen.dart';
 
@@ -34,8 +38,10 @@ class Routes {
       '/Forget Password': (context) =>const ForgetPassword(), 
       '/otp code': (context) =>const OtpScreen(), 
       '/Change Password': (context) =>const ChangePassword(), 
-      '/faq': (context) =>const ChangePassword(), 
+      '/policy': (context) =>const PrivacyPolicyPage(), 
+      '/terms': (context) =>const TermsAndConditionsPage(), 
       '/contact us': (context) =>const Contactus(), 
+      '/faq': (context) =>const FaqPage(), 
       '/mybooks': (context) =>const ChangePassword(), 
       '/edit profile': (context) =>const EditProfile(), 
    
