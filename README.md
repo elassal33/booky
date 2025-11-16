@@ -1,16 +1,34 @@
-# auth
+📚 Booky – E-Book & Book Store App
 
-A new Flutter project.
+A full-featured Flutter application for browsing, reading, and purchasing e-books with authentication, payments, and a smooth reading experience.
 
-## Getting Started
+🚀 Features
 
-This project is a starting point for a Flutter application.
+🔐 Firebase Authentication (email & social login)
 
-A few resources to get you started if this is your first Flutter project:
+📖 E-Book reader with PDF viewer
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+🛒 Digital bookstore: browse, search, and filter books
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+❤️ Favorites & personalized recommendations
+
+👤 User profile with update options
+
+💳 Paymob payment integration
+
+🔄 REST API integration
+
+🌓 Dark/Light Mode
+
+📱 Responsive UI for all screen sizes
+
+📦 Hive/SharedPreferences for offline caching
+
+🧱 Cubit + Clean Architecture
+
+⚡ Optimized performance & smooth animations
+
+🎥 Demo Video
+
+▶ Watch the full demo here:
+https://drive.google.com/file/d/1HwSuo_VFRC7Axr5s1UeEWeawAF1DK8xk/view?usp=drive_link
