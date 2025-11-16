@@ -18,11 +18,9 @@ A full-featured Flutter application for browsing, reading, and purchasing e-book
 
 🔄 REST API integration
 
-🌓 Dark/Light Mode
-
 📱 Responsive UI for all screen sizes
 
-📦 Hive/SharedPreferences for offline caching
+📦 SharedPreferences for offline caching
 
 🧱 Cubit + Clean Architecture
 
