@@ -22,7 +22,7 @@ A full-featured Flutter application for browsing, reading, and purchasing e-book
 
 📦 SharedPreferences for offline caching
 
-🧱 Cubit + Clean Architecture
+🧱 Cubit + Bloc Architecture
 
 ⚡ Optimized performance & smooth animations
 
